@@ -1,0 +1,80 @@
+Here's a detailed explanation of the changes and the functionality of the base and other nodes:
+
+1. Node Abstraction and Base Node
+Base Node (BaseNode.js) The BaseNode is an abstract component designed to standardize the common functionalities and styles shared by various node types. It allows for easier creation and maintenance of new nodes.
+
+Functionality:
+
+Provides a common structure and styling that other nodes can extend.
+Handles the common parts like Handle connections, node styling, etc.
+Implementation:
+
+Implemented as a React functional component that provides a basic structure.
+Other node components extend or use this base component to ensure consistency.
+2. Changes Made
+In Node Components:
+
+Component Naming:
+
+React components were renamed to start with an uppercase letter to comply with React’s naming conventions.
+Component Functionality:
+
+The nodes (InputNode, OutputNode, LLMNode, TextNode) now use the BaseNode to inherit common functionality and styling.
+Imports and Exports:
+
+Fixed import/export issues by ensuring that components are exported with correct names and imported correctly in ui.js.
+Example Adjustments:
+
+InputNode: Manages input data, such as input name and type. Uses Handle for input connections.
+
+javascript
+Copy code
+export const InputNode = ({ id, data }) => {
+  const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
+  const [inputType, setInputType] = useState(data.inputType || 'Text');
+  // Handles name and type changes, and renders a handle for input connection
+};
+OutputNode: Manages output data, including output name and type. Provides a handle for output connections.
+
+javascript
+Copy code
+export const OutputNode = ({ id, data }) => {
+  const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
+  const [outputType, setOutputType] = useState(data.outputType || 'Text');
+  // Handles name and type changes, and renders a handle for output connection
+};
+LLMNode: Represents a node for large language models with different handles for connections.
+
+javascript
+Copy code
+export const LLMNode = ({ id, data }) => {
+  // Renders handles for input and output connections, and displays basic information about the LLM node
+};
+TextNode: Displays a text input field and handles connections for output.
+
+javascript
+Copy code
+export const TextNode = ({ id, data }) => {
+  const [currText, setCurrText] = useState(data?.text || '{{input}}');
+  // Manages text input and renders a handle for output connection
+};
+3. How the Abstraction Works
+Base Node (BaseNode.js):
+
+This component is not shown here but serves as a foundation. It defines common properties and styles for nodes.
+Derived Nodes:
+
+Each specific node (InputNode, OutputNode, LLMNode, TextNode) extends or uses the BaseNode to inherit shared properties.
+Custom functionality and unique parts are added to each derived node.
+4. Changes Summary
+Fixed Errors:
+
+Removed duplicate imports.
+Renamed components to start with uppercase letters.
+Ensured exports match the imports in ui.js.
+Corrected undefined Position issues.
+Node Functionality:
+
+Each node manages its own specific data (e.g., input type, output type) and renders its unique elements.
+Nodes are standardized to ensure consistency and ease of maintenance.
+Let me know if you need further details on any specific part!
